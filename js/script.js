@@ -1,7 +1,24 @@
+var namelist = [
+    "Dennis Cai",
+    "Merewyn Ho",
+    "Jamaine Ong",
+    "Hooi Yin",
+    "Louelle",
+    "Felix Yap",
+    "Celine Koh",
+    "Celine Levesque",
+    "Wissem Chambazi",
+    "Sheila Tay",
+    "Jenny"
+]
+
+for(i=0;i<namelist.length;i++){
+    $(".slot").append("<li><span>" + namelist[i] + "</span></li>");
+}
+
 // fancy example
 $('.fancy .slot').jSlots({
     number : 1,
-    winnerNumber : 1,
     spinner : '#playFancy',
     easing : 'easeOutSine',
     time : 7000,
@@ -10,18 +27,8 @@ $('.fancy .slot').jSlots({
         $('.slot').removeClass('winner');
     },
     onWin : function(winCount, winners) {
-        // only fires if you win
-        
         $.each(winners, function() {
             this.addClass('winner');
         });
-
-        // react to the # of winning slots                 
-        if ( winCount === 1 ) {
-            //alert('You got ' + winCount + ' 7!!!');
-        } else if ( winCount > 1 ) {
-            //alert('You got ' + winCount + ' 7’s!!!');
-        }
-        
     }
 });

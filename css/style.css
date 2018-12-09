@@ -1,3 +1,24 @@
+@font-face {
+  font-family: 'Gravitas One';
+  font-style: normal;
+  font-weight: 400;
+  src: url(gravitas_one.woff2) format('woff2');
+}
+
+#main{
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url("../images/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1200px;
+    height: 870px;
+}
+
+.fancy{
+    position: absolute;
+}
+
 ul {
     padding: 0;
     margin: 0;
@@ -7,14 +28,21 @@ ul {
 .jSlots-wrapper {
     overflow: hidden;
     height: 20px;
-    display: inline-block; /* to size correctly, can use float too, or width*/
-    border: 1px solid #999;
+    display: block; /* to size correctly, can use float too, or width*/
+}
+
+#playFancy{
+    background-image: url("../images/play.png");
+    width: 309px;
+    height: 100px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .slot {
     float: left;
 }
-
 
 
 /* ---------------------------------------------------------------------
@@ -23,8 +51,10 @@ ul {
 .fancy .jSlots-wrapper {
     overflow: hidden;
     height: 100px;
-    display: inline-block; /* to size correctly, can use float too, or width*/
-    border: 1px solid #999;
+    display: block; /* to size correctly, can use float too, or width*/
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 300px;
 }
 
 .fancy .slot li {
@@ -33,37 +63,9 @@ ul {
     text-align: center;
     font-size: 70px;
     font-weight: bold;
-    color: #fff;
+    color: 0;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
     font-family: 'Gravitas One', serif;
-    border-left: 1px solid #999;
-}
-
-.fancy .slot:first-child li {
-    border-left: none;
-}
-
-.fancy .slot li:nth-child(7) {
-    background-color: #FFCE29;
-}
-.fancy .slot li:nth-child(6) {
-    background-color: #FFA22B;
-}
-.fancy .slot li:nth-child(5) {
-    background-color: #FF8645;
-}
-.fancy .slot li:nth-child(4) {
-    background-color: #FF6D3F;
-}
-.fancy .slot li:nth-child(3) {
-    background-color: #FF494C;
-}
-.fancy .slot li:nth-child(2) {
-    background-color: #FF3333;
-}
-.fancy .slot li:nth-child(1),
-.fancy .slot li:nth-child(8) {
-    background-color: #FF0000;
 }
 
 .fancy .slot li span {
