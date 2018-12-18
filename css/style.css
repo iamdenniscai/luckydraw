@@ -5,18 +5,24 @@
   src: url(gravitas_one.woff2) format('woff2');
 }
 
-#main{
-    margin-left: auto;
-    margin-right: auto;
-    background-image: url("../images/background.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 1200px;
-    height: 870px;
+html, body{
+    height: 100%;
 }
 
-.fancy{
-    position: absolute;
+#main{
+    position: relative;
+    display: flex;
+    background-image: url("../images/background.png");
+    background-repeat: no-repeat;
+    background-size: contain;    
+    background-position: center center;
+    height: 100%;
+    max-width: calc(1.4 * 100vh);
+    max-height: calc(0.71 * 100vw);
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
 }
 
 ul {
@@ -25,23 +31,58 @@ ul {
     list-style: none;
 }
 
+.fancy{
+    width: calc(0.74 * 100%);
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#settings{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 5%;
+    height: 8%;
+    background-image: url(../images/settings.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+#winners{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 5%;
+    height: 8%;
+    background-image: url(../images/winner.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
 .jSlots-wrapper {
     overflow: hidden;
     height: 20px;
     display: block; /* to size correctly, can use float too, or width*/
+
 }
 
 #playFancy{
-    background-image: url("../images/play.png");
-    width: 309px;
-    height: 100px;
-    margin-top: 20px;
+    max-width: 10%;
     margin-left: auto;
     margin-right: auto;
+    width: 6%;
+    height: auto;
+    cursor: pointer;
 }
 
 .slot {
-    float: left;
+    
 }
 
 
@@ -52,18 +93,15 @@ ul {
     overflow: hidden;
     height: 100px;
     display: block; /* to size correctly, can use float too, or width*/
-    margin-left: 150px;
-    margin-right: 150px;
-    margin-top: 300px;
 }
 
 .fancy .slot li {
-    width: 1000px;
+    width: 100%;
     line-height: 100px;
     text-align: center;
-    font-size: 70px;
+    font-size: calc(0.06*100vh);
     font-weight: bold;
-    color: 0;
+    color: #e0115f;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
     font-family: 'Gravitas One', serif;
 }
@@ -171,4 +209,8 @@ ul {
      -webkit-animation: winner 2s infinite linear;
         -moz-animation: winner 2s infinite linear;
          -ms-animation: winner 2s infinite linear;
+}
+
+#namelist-table{
+    width: 100%;
 }

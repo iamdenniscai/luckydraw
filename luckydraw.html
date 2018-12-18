@@ -3,19 +3,47 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Lucky Draw</title>
+<link rel="stylesheet" href="./css/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body>
+    <div id="winners-form" title="Winner Names">
+        <form>
+            <table id="winners-table" class="ui-widget ui-widget-content">
+                <tbody id="winners-tbody">
+                </tbody>
+              </table>
+        </form>
+    </div>
+
+    <div id="namelist-form" title="Lucky Draw Names">
+        <form>
+            <table id="namelist-table" class="ui-widget ui-widget-content">
+                <tbody id="namelist-tbody">
+                </tbody>
+              </table>
+        </form>
+    </div>
+
+    <div id="add-name-form" title="Add Name">
+        <form>
+            <input type="text" name="name" id="name" value="" class="text ui-widget-content ui-corner-all">
+      </form>
+    </div>
+
     <div id="main">
         <div class="fancy">
             <ul class="slot">
             </ul>
-            <div id="playFancy"></div>
+            <img src="./images/play.png" id="playFancy" />
         </div>
+        <div id="settings"></div>
+        <div id="winners"></div>
     </div>
     <script src="./js/jquery-3.3.1.min.js"></script>
     <script src="./js/jquery.easing.1.3.js" type="text/javascript" charset="utf-8"></script>
     <script src="./js/jquery.jSlots.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./js/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
     <script src="./js/script.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

@@ -34,7 +34,7 @@
 
         $.jSlots.defaultOptions = {
             number : 3,          // Number: number of slots
-            winnerNumber : 1,    // Number or Array: list item number(s) upon which to trigger a win, 1-based index, NOT ZERO-BASED
+            //winnerNumber : 1,    // Number or Array: list item number(s) upon which to trigger a win, 1-based index, NOT ZERO-BASED
             spinner : '',        // CSS Selector: element to bind the start event to
             spinEvent : 'click', // String: event to start slots on this event
             onStart : $.noop,    // Function: runs on spin start,
@@ -129,9 +129,7 @@
 
             // do one rotation
             spinEm : function() {
-
                 var that = this;
-
                 that.$el
                     .css( 'top', -base.listHeight )
                     .animate( { 'top' : '0px' }, that.spinSpeed, 'linear', function() {
@@ -141,7 +139,6 @@
             },
 
             lowerSpeed : function() {
-
                 this.spinSpeed += base.increment;
                 this.loopCount++;
 
