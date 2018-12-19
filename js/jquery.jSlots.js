@@ -40,6 +40,7 @@
             easing : 'swing',    // String: easing type for final spin
             time : 7000,         // Number: total time of spin animation
             loops : 6,            // Number: times it will spin during the animation
+            winnerIndexList: [],
         };
 
         // --------------------------------------------------------------------- //
@@ -61,7 +62,7 @@
         base.$liWidth = 0;
 
         base.allSlots = [];
-        base.winnerIndexList = [];
+        //base.winnerIndexList = [];
 
         // --------------------------------------------------------------------- //
         // FUNCTIONS
@@ -159,7 +160,7 @@
                     }
                 }
                 console.log("winner = " + endNum);
-                base.winnerIndexList.push(endNum);
+                base.options.winnerIndexList.push(endNum);
 
                 var finalPos = - ( (base.$liHeight * endNum) - base.$liHeight );
                 //var finalSpeed = ( (this.spinSpeed * 0.5) * (base.liCount) ) / endNum;
@@ -178,8 +179,8 @@
 
         base.checkIfWinAlready = function(num){
             console.log("check if win already");
-            for(i=0; i<base.winnerIndexList.length; i++){
-                if(num == base.winnerIndexList[i]){
+            for(i=0; i<base.options.winnerIndexList.length; i++){
+                if(num == base.options.winnerIndexList[i]){
                     console.log(num + "win already");
                     return true;
                 }
@@ -198,7 +199,7 @@
             $.each(base.allSlots, function(index, val) {
                 this.spinSpeed = 0;
                 this.loopCount = 0;
-                if(base.winnerIndexList.length < base.$el.children().length){
+                if(base.options.winnerIndexList.length < base.$el.children().length){
                     this.spinEm();    
                 }else{
                     alert("No more!");

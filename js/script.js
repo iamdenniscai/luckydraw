@@ -11,16 +11,33 @@ var namelist = [
 'John',
 ]
 
-var winners = [];
-var originalNamelist = namelist.slice();
-
-//$(".slot").append("<li><span> Lucky Draw </span></li>");
-for(i=0;i<namelist.length;i++){
-    $(".slot").append("<li><span>" + namelist[i] + "</span></li>");
-    $("#namelist-tbody").append("<tr><td>" + namelist[i] + "</td></tr>");
-}
-
 $( function() {
+
+    var winners = [];
+    var originalNamelist = namelist.slice();
+    var savedWinnersList = [];
+
+    if(typeof(Storage) == "undefined"){
+        alert("Browser does not support saving of data");
+    }
+
+    if(localStorage.winners){
+        winners = JSON.parse(localStorage.winners);
+        refreshWinnerList();
+        savedWinnersList = calcWinnerIndexList();
+    }
+
+    if(localStorage.namelist){
+        namelist = JSON.parse(localStorage.namelist);
+    }
+
+    //$(".slot").append("<li><span> Lucky Draw </span></li>");
+    for(i=0;i<namelist.length;i++){
+        $("#namelist-tbody").append("<tr><td>" + namelist[i] + "</td></tr>");
+    }
+    for(i=0;i<originalNamelist.length;i++){
+        $(".slot").append("<li><span>" + originalNamelist[i] + "</span></li>");
+    }
 
     // fancy example
     $('.fancy .slot').jSlots({
@@ -29,6 +46,7 @@ $( function() {
         easing : 'easeOutSine',
         time : 1000,
         loops : 5,
+        winnerIndexList: savedWinnersList,
         onStart : function() {
             refreshSlots();
         },
@@ -36,6 +54,8 @@ $( function() {
             addWinner(originalNamelist[finalNumbers - 1]);
             refreshWinnerList();
             refreshNameList();
+            saveWinnerList();
+            saveNameList();
         }
     });
 
@@ -48,11 +68,15 @@ $( function() {
 
     var nameListDialog = $("#namelist-form").dialog({
         autoOpen: false,
-        height: 400,
-        width: 350,
+        height: 500,
+        width: 400,
         modal: true,
         buttons: {
-            "Add Name" : showAddNameDialog
+            "Reset Namelist" : function(){
+                clearLocalStorage();
+                location.reload();
+            },
+            "Add Name" : showAddNameDialog,
         }
     });
 
@@ -117,5 +141,31 @@ $( function() {
         }
     }
 
+    function saveWinnerList(){
+        console.log('save winners');
+        localStorage.setItem("winners", JSON.stringify(winners));
+    }
+
+    function saveNameList(){
+        localStorage.setItem("namelist", JSON.stringify(namelist));
+    }
+
+    function clearLocalStorage(){
+        localStorage.removeItem("winners");
+        localStorage.removeItem("namelist");
+    }
+
+    function calcWinnerIndexList(){
+        var result = [];
+        for(var i=0; i<winners.length; i++){
+            for(var j=0; j<originalNamelist.length; j++){
+                if(winners[i] == originalNamelist[j]){
+                    result.push(j+1);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
 
 });
