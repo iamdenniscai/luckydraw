@@ -1,21 +1,19 @@
 var namelist = [
 'Alex',
-'Bernard Saw',
-'Candice Choo',
+'Bernard',
+'Candice',
 'Dennis',
 'Erwin',
-'Frances Tay',
-'Geoffrey Koh',
+'Frances',
+'Geoffrey',
 'Henderson',
 'Ian',
 'John',
-'Kenny',
 ]
 
 var winners = [];
-var luckyDrawRemoved = false;
 
-$(".slot").append("<li><span> Lucky Draw <span></li>");
+//$(".slot").append("<li><span> Lucky Draw </span></li>");
 for(i=0;i<namelist.length;i++){
     $(".slot").append("<li><span>" + namelist[i] + "</span></li>");
     $("#namelist-tbody").append("<tr><td>" + namelist[i] + "</td></tr>");
@@ -29,24 +27,14 @@ $( function() {
         spinner : '#playFancy',
         easing : 'easeOutSine',
         time : 1000,
-        loops : 1,
+        loops : 5,
         onStart : function() {
-            if(!luckyDrawRemoved){
-                refreshSlots();
-                luckyDrawRemoved = true;
-            }
             refreshSlots();
         },
         onEnd : function(finalNumbers){
-            if(finalNumbers.length){
-                addWinner(namelist[finalNumbers - 1]);
-            }
-        },
-        onWin : function(winCount, winners) {
-            $.each(winners, function() {
-                //this.addClass('winner');
-                alert(winners);
-            });
+            addWinner(namelist[finalNumbers - 1]);
+            refreshWinnerList();
+            refreshNameList();
         }
     });
 
@@ -84,6 +72,7 @@ $( function() {
     });
 
     function addWinner(name){
+        console.log("winner: " + name);
         winners.push(name);
         for(i=0; i<namelist.length; i++){
             if(namelist[i] == name){
@@ -91,8 +80,6 @@ $( function() {
                 break;
             }
         }
-        refreshWinnerList();
-        refreshNameList();
     }
 
     function showAddNameDialog(){

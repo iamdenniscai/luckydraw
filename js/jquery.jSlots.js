@@ -19,12 +19,9 @@
         base.$el.data("jSlots", base);
 
         base.init = function() {
-
             base.options = $.extend({},$.jSlots.defaultOptions, options);
-
             base.setup();
             base.bindEvents();
-
         };
 
 
@@ -33,7 +30,7 @@
         // --------------------------------------------------------------------- //
 
         $.jSlots.defaultOptions = {
-            number : 3,          // Number: number of slots
+            number : 1,          // Number: number of slots
             //winnerNumber : 1,    // Number or Array: list item number(s) upon which to trigger a win, 1-based index, NOT ZERO-BASED
             spinner : '',        // CSS Selector: element to bind the start event to
             spinEvent : 'click', // String: event to start slots on this event
@@ -42,7 +39,7 @@
             onWin : $.noop,      // Function: run on winning number. It is passed (winCount:Number, winners:Array)
             easing : 'swing',    // String: easing type for final spin
             time : 7000,         // Number: total time of spin animation
-            loops : 6            // Number: times it will spin during the animation
+            loops : 6,            // Number: times it will spin during the animation
         };
 
         // --------------------------------------------------------------------- //
@@ -59,14 +56,12 @@
 
         base.isSpinning = false;
         base.spinSpeed = 0;
-        base.winCount = 0;
-        base.doneCount = 0;
 
         base.$liHeight = 0;
         base.$liWidth = 0;
 
-        base.winners = [];
         base.allSlots = [];
+        base.winnerIndexList = [];
 
         // --------------------------------------------------------------------- //
         // FUNCTIONS
@@ -91,18 +86,14 @@
 
             $list.css('position', 'relative');
 
-            $li.clone().appendTo($list);
+            //$li.clone().appendTo($list);
 
             base.$wrapper = $list.wrap('<div class="jSlots-wrapper"></div>').parent();
 
             // remove original, so it can be recreated as a Slot
             base.$el.remove();
-
             // clone lists
-            for (var i = base.options.number - 1; i >= 0; i--){
-                base.allSlots.push( new base.Slot() );
-            }
-
+            base.allSlots.push( new base.Slot() );
         };
 
         base.bindEvents = function() {
@@ -159,6 +150,12 @@
                 var that = this;
 
                 var endNum = base.randomRange( 1, base.liCount );
+                while(base.checkIfWinAlready(endNum)){
+                    endNum++;
+                    if(endNum == base.$el.children().length){
+                        endNum = 1;
+                    }
+                }
 
                 var finalPos = - ( (base.$liHeight * endNum) - base.$liHeight );
                 var finalSpeed = ( (this.spinSpeed * 0.5) * (base.liCount) ) / endNum;
@@ -166,58 +163,29 @@
                 that.$el
                     .css( 'top', -base.listHeight )
                     .animate( {'top': finalPos}, finalSpeed, base.options.easing, function() {
-                        base.checkWinner(endNum, that);
+                        if ( $.isFunction( base.options.onEnd ) ) {
+                            base.options.onEnd(endNum);
+                        }
+                        base.isSpinning = false;
                     });
-
             }
 
         };
 
-        base.checkWinner = function(endNum, slot) {
+        base.checkIfWinAlready = function(num){
 
-            base.doneCount++;
-            // set the slot number to whatever it ended on
-            slot.number = endNum;
-
-            // if its in the winners array
-            if (
-                ( $.isArray( base.options.winnerNumber ) && base.options.winnerNumber.indexOf(endNum) > -1 ) ||
-                endNum === base.options.winnerNumber
-                ) {
-
-                // its a winner!
-                base.winCount++;
-                base.winners.push(slot.$el);
-
-            }
-
-            if (base.doneCount === base.options.number) {
-
-                var finalNumbers = [];
-
-                $.each(base.allSlots, function(index, val) {
-                    finalNumbers[index] = val.number;
-                });
-
-                if ( $.isFunction( base.options.onEnd ) ) {
-                    base.options.onEnd(finalNumbers);
+            for(i=0; i<base.winnerIndexList.length; i++){
+                if(num == base.winnerIndexList[i]){
+                    return true;
                 }
-
-                if ( base.winCount && $.isFunction(base.options.onWin) ) {
-                    base.options.onWin(base.winCount, base.winners, finalNumbers);
-                }
-                base.isSpinning = false;
             }
-        };
-
+            return false;
+        }
 
         base.playSlots = function() {
 
             base.isSpinning = true;
-            base.winCount = 0;
-            base.doneCount = 0;
-            base.winners = [];
-
+            
             if ( $.isFunction(base.options.onStart) ) {
                 base.options.onStart();
             }
@@ -225,18 +193,12 @@
             $.each(base.allSlots, function(index, val) {
                 this.spinSpeed = 0;
                 this.loopCount = 0;
-                this.spinEm();
+                if(base.winnerIndexList < base.$el.children().length){
+                    this.spinEm();    
+                }
             });
 
         };
-
-
-        base.onWin = function() {
-            if ( $.isFunction(base.options.onWin) ) {
-                base.options.onWin();
-            }
-        };
-
 
         // Run initializer
         base.init();
