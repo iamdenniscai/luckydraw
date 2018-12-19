@@ -202,6 +202,7 @@
                     this.spinEm();    
                 }else{
                     alert("No more!");
+                    base.isSpinning = false;
                 }
             });
 
