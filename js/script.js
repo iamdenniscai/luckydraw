@@ -2,13 +2,6 @@ var namelist = [
 'Alex',
 'Bernard',
 'Candice',
-'Dennis',
-'Erwin',
-'Frances',
-'Gabriel',
-'Heather',
-'Ian',
-'John',
 ]
 
 $( function() {
@@ -25,6 +18,10 @@ $( function() {
         winners = JSON.parse(localStorage.winners);
         refreshWinnerList();
         savedWinnersList = calcWinnerIndexList();
+    }
+
+    if(localStorage.originalNamelist){
+        originalNamelist = JSON.parse(localStorage.originalNamelist);
     }
 
     if(localStorage.namelist){
@@ -115,7 +112,10 @@ $( function() {
     function saveName(){
         var name = $("#name").val();
         namelist.push(name);
+        originalNamelist.push(name);
         addNameDialog.dialog("close");
+        saveOriginalNameList();
+        saveNameList();
         refreshSlots();
         refreshNameList();
     }
@@ -150,9 +150,14 @@ $( function() {
         localStorage.setItem("namelist", JSON.stringify(namelist));
     }
 
+    function saveOriginalNameList(){
+        localStorage.setItem("originalNamelist", JSON.stringify(originalNamelist));
+    }
+
     function clearLocalStorage(){
         localStorage.removeItem("winners");
         localStorage.removeItem("namelist");
+        localStorage.removeItem("originalNamelist");
     }
 
     function calcWinnerIndexList(){
