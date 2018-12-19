@@ -162,8 +162,8 @@
                 base.winnerIndexList.push(endNum);
 
                 var finalPos = - ( (base.$liHeight * endNum) - base.$liHeight );
-                var finalSpeed = ( (this.spinSpeed * 0.5) * (base.liCount) ) / endNum;
-
+                //var finalSpeed = ( (this.spinSpeed * 0.5) * (base.liCount) ) / endNum;
+                var finalSpeed = this.spinSpeed + base.increment;
                 that.$el
                     .css( 'top', -base.listHeight )
                     .animate( {'top': finalPos}, finalSpeed, base.options.easing, function() {

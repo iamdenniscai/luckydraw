@@ -2,6 +2,13 @@ var namelist = [
 'Alex',
 'Bernard',
 'Candice',
+'Dennis',
+'Erwin',
+'Frances',
+'Gabriel',
+'Heather',
+'Ian',
+'John',
 ]
 
 var winners = [];
