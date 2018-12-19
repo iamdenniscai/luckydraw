@@ -148,12 +148,12 @@
             finish : function() {
 
                 var that = this;
-console.log("1 to " + base.liCount);
+                console.log("1 to " + base.liCount);
                 var endNum = base.randomRange( 1, base.liCount );
                 while(base.checkIfWinAlready(endNum)){
                     endNum++;
                     console.log("endNum = " + endNum);
-                    if(endNum == base.$el.children().length){
+                    if(endNum > base.$el.children().length){
                         endNum = 1;
                         console.log("endNum = " + endNum);
                     }
