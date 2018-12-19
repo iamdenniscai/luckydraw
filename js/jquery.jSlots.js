@@ -148,14 +148,18 @@
             finish : function() {
 
                 var that = this;
-
+console.log("1 to " + base.liCount);
                 var endNum = base.randomRange( 1, base.liCount );
                 while(base.checkIfWinAlready(endNum)){
                     endNum++;
+                    console.log("endNum = " + endNum);
                     if(endNum == base.$el.children().length){
                         endNum = 1;
+                        console.log("endNum = " + endNum);
                     }
                 }
+                console.log("winner = " + endNum);
+                base.winnerIndexList.push(endNum);
 
                 var finalPos = - ( (base.$liHeight * endNum) - base.$liHeight );
                 var finalSpeed = ( (this.spinSpeed * 0.5) * (base.liCount) ) / endNum;
@@ -173,9 +177,10 @@
         };
 
         base.checkIfWinAlready = function(num){
-
+            console.log("check if win already");
             for(i=0; i<base.winnerIndexList.length; i++){
                 if(num == base.winnerIndexList[i]){
+                    console.log(num + "win already");
                     return true;
                 }
             }
@@ -193,8 +198,10 @@
             $.each(base.allSlots, function(index, val) {
                 this.spinSpeed = 0;
                 this.loopCount = 0;
-                if(base.winnerIndexList < base.$el.children().length){
+                if(base.winnerIndexList.length < base.$el.children().length){
                     this.spinEm();    
+                }else{
+                    alert("No more!");
                 }
             });
 

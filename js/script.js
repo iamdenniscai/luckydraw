@@ -12,6 +12,7 @@ var namelist = [
 ]
 
 var winners = [];
+var originalNamelist = namelist.slice();
 
 //$(".slot").append("<li><span> Lucky Draw </span></li>");
 for(i=0;i<namelist.length;i++){
@@ -32,7 +33,7 @@ $( function() {
             refreshSlots();
         },
         onEnd : function(finalNumbers){
-            addWinner(namelist[finalNumbers - 1]);
+            addWinner(originalNamelist[finalNumbers - 1]);
             refreshWinnerList();
             refreshNameList();
         }
@@ -97,8 +98,8 @@ $( function() {
 
     function refreshSlots(){
         $(".slot").empty();
-        for(i=0;i<namelist.length;i++){
-            $(".slot").append("<li><span>" + namelist[i] + "</span></li>");
+        for(i=0;i<originalNamelist.length;i++){
+            $(".slot").append("<li><span>" + originalNamelist[i] + "</span></li>");
         }
     }
 
