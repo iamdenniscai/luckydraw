@@ -104,6 +104,7 @@ ul {
     color: #e0115f;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
     font-family: 'Gravitas One', serif;
+    overflow: hidden;
 }
 
 .fancy .slot li span {
@@ -217,4 +218,9 @@ ul {
 
 #winners-table{
     width: 100%;
+}
+
+#winners-table tr td:hover{
+    background-color: #ffff00;
+    cursor: pointer;
 }

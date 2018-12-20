@@ -1,7 +1,9 @@
 var namelist = [
-'Alex',
-'Bernard',
+'Alex is a very long name',
+'Benard',
 'Candice',
+'Dennis',
+'Elvis',
 ]
 
 $( function() {
@@ -9,52 +11,6 @@ $( function() {
     var winners = [];
     var originalNamelist = namelist.slice();
     var savedWinnersList = [];
-
-    if(typeof(Storage) == "undefined"){
-        alert("Browser does not support saving of data");
-    }
-
-    if(localStorage.winners){
-        winners = JSON.parse(localStorage.winners);
-        refreshWinnerList();
-        savedWinnersList = calcWinnerIndexList();
-    }
-
-    if(localStorage.originalNamelist){
-        originalNamelist = JSON.parse(localStorage.originalNamelist);
-    }
-
-    if(localStorage.namelist){
-        namelist = JSON.parse(localStorage.namelist);
-    }
-
-    //$(".slot").append("<li><span> Lucky Draw </span></li>");
-    for(i=0;i<namelist.length;i++){
-        $("#namelist-tbody").append("<tr><td>" + namelist[i] + "</td></tr>");
-    }
-    for(i=0;i<originalNamelist.length;i++){
-        $(".slot").append("<li><span>" + originalNamelist[i] + "</span></li>");
-    }
-
-    // fancy example
-    $('.fancy .slot').jSlots({
-        number : 1,
-        spinner : '#playFancy',
-        easing : 'easeOutSine',
-        time : 1000,
-        loops : 5,
-        winnerIndexList: savedWinnersList,
-        onStart : function() {
-            refreshSlots();
-        },
-        onEnd : function(finalNumbers){
-            addWinner(originalNamelist[finalNumbers - 1]);
-            refreshWinnerList();
-            refreshNameList();
-            saveWinnerList();
-            saveNameList();
-        }
-    });
 
     var winnersDialog = $("#winners-form").dialog({
         autoOpen: false,
@@ -85,11 +41,64 @@ $( function() {
         }
     });
 
+    if(typeof(Storage) == "undefined"){
+        alert("Browser does not support saving of data");
+    }
+
+    if(localStorage.winners){
+        winners = JSON.parse(localStorage.winners);
+        refreshWinnerList();
+        savedWinnersList = calcWinnerIndexList();
+    }
+
+    if(localStorage.originalNamelist){
+        originalNamelist = JSON.parse(localStorage.originalNamelist);
+    }
+
+    if(localStorage.namelist){
+        namelist = JSON.parse(localStorage.namelist);
+    }
+
+    //$(".slot").append("<li><span> Lucky Draw </span></li>");
+    for(i=0;i<namelist.length;i++){
+        $("#namelist-tbody").append("<tr><td>" + namelist[i] + "</td></tr>");
+    }
+    
+    for(i=0;i<originalNamelist.length;i++){
+        $(".slot").append("<li><span>" + originalNamelist[i] + "</span></li>");
+    }
+
+    $("#winners-table tr td").keypress(function(event){
+        
+    });
+
+    // fancy example
+    $('.fancy .slot').jSlots({
+        number : 1,
+        spinner : '#playFancy',
+        easing : 'easeOutSine',
+        time : 1000,
+        loops : 5,
+        winnerIndexList: savedWinnersList,
+        onStart : function() {
+            refreshSlots();
+        },
+        onEnd : function(finalNumbers){
+            addWinner(originalNamelist[finalNumbers - 1]);
+            refreshWinnerList();
+            refreshNameList();
+            saveWinnerList();
+            saveNameList();
+        }
+    });
+
     $( "#winners" ).on( "click", function() {
+        winnersDialog.dialog("option", "title", "Winner Names - " + winners.length);
         winnersDialog.dialog("open");
     });    
 
     $( "#settings" ).on( "click", function() {
+        nameListDialog.dialog("option", "title", "Lucky Draw Names - " + namelist.length);
         nameListDialog.dialog("open");
     });
 
@@ -132,6 +141,7 @@ $( function() {
         for(i=0;i<namelist.length;i++){
             $("#namelist-tbody").append("<tr><td>" + namelist[i] + "</td></tr>");
         }
+        nameListDialog.dialog("option", "title", "Lucky Draw Names - " + namelist.length);
     }
 
     function refreshWinnerList(){
@@ -139,6 +149,7 @@ $( function() {
         for(i=0;i<winners.length;i++){
             $("#winners-tbody").append("<tr><td>" + winners[i] + "</td></tr>");
         }
+        winnersDialog.dialog("option", "title", "Winner Names - " + winners.length);
     }
 
     function saveWinnerList(){
