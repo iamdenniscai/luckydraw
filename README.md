@@ -2,6 +2,8 @@
 
 This is a functioning lucky draw program for company events. 
 
+![Lucky draw screenshot](https://github.com/iamdenniscai/luckydraw/blob/master/luckydraw.png?raw=true)
+
 ## Features
 
 1. Animation to show names turning until the lucky winner
