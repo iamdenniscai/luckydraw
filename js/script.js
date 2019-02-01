@@ -1,9 +1,12 @@
 var namelist = [
-'Alex is a very long name',
+'Alex',
 'Benard',
 'Candice',
 'Dennis',
 'Elvis',
+'Frances',
+'Geoffrey',
+'Hazel'
 ]
 
 $( function() {
